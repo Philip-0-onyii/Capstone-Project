@@ -1,0 +1,10 @@
+function authMiddleware(req, res, next) {
+  // verify JWT
+}
+
+function creatorOnly(req, res, next) {
+  if (req.user.role !== "CREATOR") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+  next();
+}
