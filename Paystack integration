@@ -1,0 +1,15 @@
+*Initialise payment*
+POST /api/payments/initialize
+
+*Use pay stack API*
+axios.post("https://api.paystack.co/transaction/initialize", {
+  email,
+  amount: price * 100
+}, {
+  headers: {
+    Authorization: `Bearer ${PAYSTACK_SECRET}`
+  }
+});
+
+*Verify payment*
+GET /api/payments/verify/:reference
