@@ -1,0 +1,49 @@
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  role        Role
+  events      Event[]  @relation("CreatorEvents")
+  tickets     Ticket[]
+  createdAt   DateTime @default(now())
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  location    String
+  price       Float
+  creator     User     @relation("CreatorEvents", fields: [creatorId], references: [id])
+  creatorId   String
+  tickets     Ticket[]
+  createdAt   DateTime @default(now())
+}
+
+model Ticket {
+  id          String   @id @default(uuid())
+  event       Event    @relation(fields: [eventId], references: [id])
+  eventId     String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  qrCode      String
+  isScanned   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  userId      String
+  eventId     String
+  amount      Float
+  reference   String
+  status      String
+  createdAt   DateTime @default(now())
+}
+
+enum Role {
+  CREATOR
+  EVENTEE
+}
