@@ -1,0 +1,11 @@
+*Generate*
+import QRCode from "qrcode";
+
+const qrData = `ticketId:${ticket.id}`;
+const qrImage = await QRCode.toDataURL(qrData);
+
+*Verify*
+POST /api/tickets/verify
+
+*Share*
+https://eventful.com/events/:id
